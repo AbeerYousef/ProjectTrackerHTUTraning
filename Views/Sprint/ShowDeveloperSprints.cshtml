@@ -1,0 +1,114 @@
+﻿@model List<ProjectDeveloper>
+
+@{
+    ViewData["Title"] = "ShowDeveloperSprints";
+    var Project = (Project)ViewBag.Project;
+    var Sprints = Model[0].Project.Sprints;
+    var Developer = (Developer)ViewBag.Developer;
+    ViewBag.User = Developer.FirstName + " " + Developer.LastName;
+}
+
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            
+            <h3><img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" />  </h3>
+            
+        </div>
+        <div class="col-sm-6" style="text-align:center; margin-top: 4%;">
+            <h5>
+                <b>Developer Sprints</b>
+            </h5>
+            <b>Project Name : @Project.Title</b>
+        </div>
+    </div>
+
+   
+    @*<h3>
+        Project Name:
+        @Project.Title
+    </h3>*@
+
+
+
+    <table class="table table-responsive-sm" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    EndDate
+                </th>
+
+                <th>
+                    Status Sprint
+                </th>
+                <th>More</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                @foreach (var item in Sprints)
+                {
+                    @foreach (var sprintTask in item.SprintTasks)
+                    {
+                        if (sprintTask.DeveloperId == Developer.Id)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StatusSprint)
+                                </td>
+                                <td>
+                                    <a href="/SprintTask/ShowDeveloperSprintTasks?SprintId=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Tasks</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                }
+            }
+
+           
+        </tbody>
+    </table>
+
+    <div class="row">
+
+        <div class="col-sm-4 mt-4">
+            <a href="/Home/Index" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a>
+
+
+            <a href="/Project/ShowDeveloperProjects" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Project</a>
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
+

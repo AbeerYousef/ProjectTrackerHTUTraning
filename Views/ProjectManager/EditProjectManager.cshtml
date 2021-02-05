@@ -1,0 +1,77 @@
+﻿@using FinalProject.Dto
+
+@model UserDto;
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8">
+            <br /><br />
+            <b>EDIT  PROJECT MANAGER INFORMATION </b>
+            <form action="/ProjectManager/UpdateProjectManagerInf" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+
+
+                    @Html.HiddenFor(x => x.Id, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="FirstName">First Name:</label>
+                    @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @placeholder = "Enter First Name" })
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="LastName">Last Name:</label>
+                    @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @placeholder = "Enter Last Name" })
+                </div>
+
+
+                <div class="form-group">
+                    <label for="ProjectManager">Project Manager Email:</label>
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Enter Email" })
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="UserName"> User Name:</label>
+
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Enter UserName" })
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ProjectManager">Project Manager Password:</label>
+                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Enter Password" })
+                </div>
+                <div class="form-group">
+                    <label asp-for="ComperPassword"></label>
+                    <input asp-for="ComperPassword" class="form-control" />
+                    <span asp-validation-for="ComperPassword" class="text-danger"></span>
+                </div>
+
+
+
+
+                <button type="submit" class="btn LeftColer">Update</button>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+        <br />
+        <br />
+        <br />
+        <img src="~/assets/img/LOGO.png" width="100%" alt="Alternate Text" /></div>
+
+    </div>
+   
+    
+  
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+
+</script>

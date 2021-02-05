@@ -1,0 +1,86 @@
+﻿
+@model List<Developer>;
+<br />
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8"> <h2><img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" /> <b> DEVELOPERS</b> </h2></div>
+       
+        <div class="col-sm-4 mt-4"> <a href="/Developer/CreatDeveloper" type="button" class="btn LeftColer" style=" margin-top: 18px; margin-bottom: 26px;"> Add New Developer</a> </div>
+
+    </div>
+
+    <table class="table table-responsive-sm" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Edit</th>
+                <th>Delet</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var Developer = item;
+            <tr>
+                <td>@Developer.FirstName</td>
+                <td>@Developer.LastName</td>
+                <td><a href="/Developer/EditDeveloper?DeveloperID=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Edit</a></td>
+                <td>
+                    <button class="Delete btn TopColer" value="@Developer.Id">Delet </button>
+                </td>
+                
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <br /><br /><br />
+    <div class="row">
+
+        <div class="col-sm-4 mt-4"> <a href="/Home/Index" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a> </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    $('document').ready(function () {
+        $(".Delete").click(function () {
+            var developerId = $(this).val();
+            $.ajax({
+
+                url: 'DeletDeveloper',
+                data: { DeveloperId : developerId} ,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+
+                    if (data == "YES") {
+
+                        alert('Delete operation completed.');
+                        location.reload(true);
+
+                    }
+                    else {
+
+                        alert("This developer works on a project.\n You can't delete him until the project is completed.");
+                    }
+                   
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+    });
+
+</script>

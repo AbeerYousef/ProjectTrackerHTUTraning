@@ -1,0 +1,104 @@
+﻿@model IEnumerable<FinalProject.Models.Work>
+
+@{
+    ViewData["Title"] = "ShowTeamLeaderWorks";
+    var SprintTask = (SprintTask)ViewBag.SprintTask;
+    var Project = (Project)ViewBag.project;
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <br />
+            <h3><img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" />  </h3>
+        </div>
+        <div class="col-sm-6" style="text-align:center; margin-top: 12%;">
+            <h5>
+                <b>TEAM LEADER WORKS</b>
+            </h5>
+        </div>
+
+
+    </div>
+
+@*<h6> <b>Project Name : @Project.Title</b></h6>
+<h6> <b>Task Name : @SprintTask.Title</b></h6>*@
+<br />
+<table class="table table-responsive-sm" style="text-align:center">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Work Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusWork)
+            </th>
+            <th>View Work</th>
+            <th>More</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusWork)
+                </td>
+
+                @{
+                    @if (item.StatusWork == (WorkStatus)2 || item.StatusWork == (WorkStatus)3) //Approved
+                    {
+
+                        <td><a href="/Work/ViewWork?WorkId=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>View</a></td>
+
+                    }
+                    else @if (item.StatusWork == (WorkStatus)1)  //Pending
+               {
+
+            <td>
+
+                <a href="/Work/ViewWork?WorkId=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>View</a>
+            </td>
+            <td>
+
+                <a href="/Work/TeamLeaderApprovedWork?WorkId=@item.Id&SprintTaskId=@SprintTask.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Click To Approved</a>
+
+            </td>
+
+            }
+
+                }
+
+
+
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-6 col-sm-4 mt-4">
+        <a href="/Home/Index" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a>
+
+
+        <a href="/Project/ShowTeamLeaderProjects" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Project</a>
+
+        <a href="/Sprint/ShowSprints?ProjectId=@Project.Id" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Sprint</a>
+        <a href="/SprintTask/ShowSprintTasks?SprintId=@SprintTask.SprintId" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Task</a>
+    </div>
+
+</div>
+    </div>

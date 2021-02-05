@@ -1,0 +1,104 @@
+﻿@model List<SprintTask>
+
+@{
+    ViewData["Title"] = "ShowDeveloperSprintTasks";
+    var Project = (Project)ViewBag.Project;
+    var Developer = (Developer)ViewBag.Developer;
+    ViewBag.User = Developer.FirstName + " " + Developer.LastName;
+    var Sprint=(Sprint)ViewBag.Sprint;
+
+}
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+
+            <h3><img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" />  </h3>
+        </div>
+        <div class="col-sm-6" style="text-align:center; margin-top: 3%;">
+            <h5>
+                <b>Developer Tasks</b> <br />
+            </h5>
+            <b>Project Name : @Project.Title</b> <br />
+            <b>Sprint Name : @Sprint.Title</b>
+        </div>
+    </div>
+
+    @*<h5>
+        Project: @Project.Title; <br />
+        Team Leader: @Project.TeamLeader.FirstName &nbsp; @Project.TeamLeader.LastName;
+    </h5>*@
+
+
+    <table class="table table-responsive-sm" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+
+                <th>
+                    Status Task
+                </th>
+                <th>More</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StatusSprintTask)
+                    </td>
+
+
+
+                    @{
+                        @if (item.StatusSprintTask == (SprintTaskStatus)2) //completd
+                        {
+
+                            <td>
+                                <a href="/Work/ShowWorks?SprintTaskId=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Works</a>
+                            </td>
+
+                        }
+                        else @if (item.StatusSprintTask == (SprintTaskStatus)1) //pending
+                   {
+
+                    <td>
+                        <a href="/Work/ShowWorks?SprintTaskId=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Works</a>
+                        @*<a href="/SprintTsk/ChangeStatus?ProjectId=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Completed</a>*@
+                    </td>
+
+                }
+                    }
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <div class="row">
+
+        <div class="col-sm-12  mt-8">
+            <a href="/Home/Index" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a>
+            <a href="/Project/ShowDeveloperProjects" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8 " style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Project</a>
+            <a href="/Sprint/ShowDeveloperSprints?ProjectId=@Project.Id" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Sprint</a>
+
+        </div>
+
+    </div>
+</div>

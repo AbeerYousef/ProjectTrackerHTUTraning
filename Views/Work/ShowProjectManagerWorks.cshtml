@@ -1,0 +1,68 @@
+﻿@{
+    var Projects = (List<Project>)ViewBag.projects;
+}
+
+
+<div class="container">
+
+    <div class="row" style="text-align:center">
+
+        @*<div class="col-sm-12"> <h2>Welcome Project Manager</h2></div>*@
+        <div class="col-sm-8">
+            <h2>
+                <br />
+                <img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" />
+                <b> COMPLETE WORKS </b>
+            </h2>
+
+        </div>
+       
+    </div>
+ 
+    <table class="table table-responsive-sm" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+               
+                <th>Work Name</th>
+                <th>Description</th>
+                <th>File Name</th>
+                <th>The File</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var Project in Projects)
+            {
+                foreach (var Sprint in Project.Sprints)
+                {
+                    foreach (var sprintTask in Sprint.SprintTasks)
+                    {
+                        foreach (var work in sprintTask.Works)
+                        {
+                            <tr>
+                                <td>@work.Title</td>
+                                <td>@work.Description </td>
+                                <td>@work.FileName </td>
+                                <td>
+                                    <a href="/Work/GetFile?WorkId=@work.Id" class="btn LeftColer" target="_blank" style=" width: 300px;"><i class="glyphicon glyphicon-user" ></i>@work.FileName</a>
+                                </td>
+                             
+                            </tr>
+                        }
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+
+    <br /><br /><br />
+    <div class="row">
+
+        <div class="col-sm-4 mt-4"> <a href="/Home/Index" type="button" class="btn  LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a> </div>
+
+    </div>
+
+</div>

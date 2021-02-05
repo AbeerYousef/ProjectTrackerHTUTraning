@@ -1,0 +1,129 @@
+﻿@{
+    var SprintTasks = (List<SprintTask>)ViewBag.SprintTasks;
+    var Sprint = (Sprint)ViewBag.Sprint;
+
+}
+
+<br />
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-4 col-sm-12">
+            <img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" />
+        </div>
+        <div class="col-lg-4 col-sm-12 mt-4">
+            <h3> <b>TEAM LEADER TASKS</b></h3>
+           
+        </div>
+        <div class="col-lg-4 col-sm-12 mt-4">
+            <div class="col-sm-8 mt-4" style="text-align:center"> <a href="/SprintTask/CreatSprintTask?SprintId=@Sprint.Id" type="button" class="btn LeftColer" style="margin-top: -22px; margin-bottom: 26px;"> Creat Task</a> </div>
+            <b>Sprint Name : @Sprint.Title</b>
+        </div>
+
+    </div>
+
+
+    <table class="table table-responsive-sm" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Developer</th>
+                <th>Status</th>
+                <th>More</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in SprintTasks)
+            {
+                var SprintTask = (SprintTask)item;
+                <tr>
+                    <td>@SprintTask.Title</td>
+                    <td>@SprintTask.Description</td>
+                    @{
+                        var DeveloperFullName = @SprintTask.Developer.FirstName + " " + @SprintTask.Developer.LastName;
+                    }
+
+                    <td>@DeveloperFullName</td>
+                    <td>@SprintTask.StatusSprintTask</td>
+
+
+                    @{
+                        @*@if (SprintTask.StatusSprintTask == (SprintTaskStatus)2) //Completed
+                            {
+
+                                <td><a href="/Work/ShowTeamLeaderWorks?SprintTaskId=@SprintTask.Id" class="btn btn-danger"><i class="glyphicon glyphicon-user"></i>Works</a></td>
+
+                            }
+                            else @if (SprintTask.StatusSprintTask == (SprintTaskStatus)1)  //Pending*@
+                        {
+
+                            <td>
+                                @*<button class="CompletTask btn btn-danger" value="@SprintTask.Id">Complet </button>*@
+                                @*<a href="/Sprint/ChangeStatuse?SprintTaskId=@SprintTask.Id" class="btn btn-danger"><i class="glyphicon glyphicon-user"></i>Completed</a>*@
+                                <a href="/Work/ShowTeamLeaderWorks?SprintTaskId=@SprintTask.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Works</a>
+                            </td>
+
+                        }
+
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br /><br /><br />
+
+
+    <div class="col-sm-12  mt-8">
+        <a href="/Home/Index" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a>
+
+
+        <a href="/Project/ShowTeamLeaderProjects" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Project</a>
+
+        <a href="/Sprint/ShowSprints?ProjectId=@Sprint.ProjectId" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Sprint</a>
+    </div>
+
+
+
+
+
+</div>
+
+@*<script>
+
+    $('document').ready(function () {
+        $(".CompletTask").click(function () {
+            var TaskId = $(this).val();
+            
+            $.ajax({
+
+                url: '/Work/SubmitAllWorks',
+                data: { SprintTaskId: TaskId} ,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+
+
+                    if (data == "YES") {
+
+                        alert('Great !\n All Sprint has been completed.\n Your Project completed successfully.');
+                    }
+                    else {
+
+                        alert('Not all Sprint are complet !!!');
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+        });
+
+
+    });
+</script>*@
+
+

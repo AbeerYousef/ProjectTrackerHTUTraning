@@ -1,0 +1,89 @@
+﻿@model IEnumerable<FinalProject.Models.Project>
+
+@{
+    ViewData["Title"] = "ShowDeveloperProjects";
+
+    var Developer = (Developer)ViewBag.Developer;
+    ViewBag.User = Developer.FirstName + " " + Developer.LastName;
+}
+
+
+<div class="container">
+
+    
+        <div class="row">
+            <div class="col-sm-6">
+                <br />
+                <h3><img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" />  </h3>
+                @*&nbsp; &nbsp;<b>@Developer.FirstName &nbsp; @Developer.LastName</b>*@
+            </div>
+            <div class="col-sm-6" style="text-align:center; margin-top: 12%;">
+                <h5>
+                    <b>Developer Projects</b>
+                </h5>
+            </div>
+        </div>
+        <table class="table table-responsive-sm" style="text-align:center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>*@
+                    <th>
+                        Project Manager
+                    </th>
+                    <th>
+                        Status Project
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @item.ProjectManager.FirstName &nbsp; @item.ProjectManager.LastName
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StatusProject)
+                        </td>
+                        <td><a href="/Sprint/ShowDeveloperSprints?ProjectId=@item.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Sprints</a></td>
+
+
+
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+    
+
+    
+        @*<h4>Developer Name : @Developer.FirstName  @Developer.LastName</h4>*@
+
+        <br />
+  
+
+        <div class="row">
+
+            <div class="col-sm-4 mt-4"> <a href="/Home/Index" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a> </div>
+
+        </div>
+
+</div>
+

@@ -1,0 +1,104 @@
+﻿@model FinalProject.Models.Work
+
+@{
+    ViewData["Title"] = "EditWork";
+
+
+}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+            <br /><br />
+            <b>EDIT  WORK INFORMATION </b>
+            <hr />
+            <form asp-action="UpdateWork" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group" hidden>
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" hidden />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                @{
+                    if (Model.StatusWork == ((WorkStatus)1))
+                    {
+                        <div class="form-group" hidden>
+                            <label asp-for="RejectionNote" class="control-label"></label>
+                            <input asp-for="RejectionNote" class="form-control" />
+                            <span asp-validation-for="RejectionNote" class="text-danger"></span>
+                        </div>
+                    }
+
+                }
+                @{
+                    if (Model.StatusWork == ((WorkStatus)3)) //Rejected
+                    {
+                        <div class="form-group">
+                            <label asp-for="RejectionNote" class="control-label"></label>
+                            <input asp-for="RejectionNote" class="form-control" disabled />
+                            <span asp-validation-for="RejectionNote" class="text-danger"></span>
+                        </div>
+
+                    }
+                }
+
+
+                <div class="form-group" hidden>
+                    <label name="StatusWorkDto" class="control-label"></label>
+                    <input name="StatusWorkDto" class="form-control" value="@Model.StatusWork" hidden />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TheFile" class="control-label">UpLoad File</label>
+                    <input type="file" asp-for="TheFile" class="form-control" />
+                    <span asp-validation-for="TheFile" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="SprintTaskId" class="control-label"></label>
+                    <input type="number" asp-for="SprintTaskId" class="form-control" hidden />
+                    <span asp-validation-for="SprintTaskId" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn LeftColer" />
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <br />
+            <br />
+            <br />
+            <img src="~/assets/img/LOGO.png" width="100%" alt="Alternate Text" />
+        </div>
+
+    </div>
+</div>
+
+
+<div class="col-sm-4 mt-4" >
+        <a href="/Work/ShowWorks?SprintTaskId=@Model.SprintTaskId" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Works</a>
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+

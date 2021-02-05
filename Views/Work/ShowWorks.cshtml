@@ -1,0 +1,201 @@
+﻿
+
+@{
+    ViewData["Title"] = "ShowWorks";
+    var SprintTask = (SprintTask)ViewBag.SprintTask;
+    //var Works = Model[0].Works;
+    var Project = (Project)ViewBag.project;
+    var TheAlertMessage = (String)ViewBag.Alert;
+    var All = (List<SprintTask>)ViewBag.AllWorks;
+    var Developer = (Developer)ViewBag.Developer;
+    ViewBag.User = Developer.FirstName + " " + Developer.LastName;
+
+
+    foreach (var sprintTask in All)
+    {
+        foreach (var Works in sprintTask.Works)
+        {
+
+
+        }
+    }
+
+
+}
+
+<div class="container">
+    <br />
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <h3><img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" /></h3>
+           &nbsp; <b>Show Works</b>
+        </div>
+
+
+        <div class="col-sm-6 mt-4" style="text-align:center">
+            <b>Project Name:   @Project.Title</b> <br />
+            <b>Task Name:   @SprintTask.Title</b> <br />
+         
+            <a href="/Work/CreatWork?SprintTaskId=@SprintTask.Id" type="button" class="btn LeftColer" style=" margin-top: 32px; margin-bottom: 26px;"> Creat Work</a>
+            @{
+                var IsApproved = true;
+                foreach (var sprintTask in All)
+                {
+                    foreach (var Work in sprintTask.Works)
+                    {
+
+                        if (Work.StatusWork != (WorkStatus)2)
+                        {
+                            IsApproved = false;
+                            break;
+                        }
+
+                    }
+                }
+
+                if (IsApproved == true)
+                {
+                    <input id="SubmitAllWorks" type="button" class="btn LeftColer" style=" margin-top: 32px; margin-bottom: 26px;" value="Submit All Works" />
+                }
+                else
+                {
+                    <input disabled id="SubmitAllWorks" type="button" class="btn LeftColer" style=" margin-top: 32px; margin-bottom: 26px;" value="Submit All Works" />
+                }
+            }
+
+        </div>
+    </div>
+  
+
+        
+            
+       
+
+
+
+
+
+
+
+
+
+    <table class="table table-responsive-sm" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Work Name
+                </th>
+                <th>
+                    Description
+                </th>
+
+                <th>
+                    Status Work
+                </th>
+                <th> More</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ foreach (var sprintTask in All)
+                {
+                    foreach (var Work in sprintTask.Works)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => Work.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Work.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Work.StatusWork)
+                            </td>
+                            @{
+                                if (Work.StatusWork != (WorkStatus)2)
+                                {     //pending or reject
+
+                                    <td>
+                                        <a href="/Work/EditWork?WorkId=@Work.Id" type="button" class="btn LeftColer" style=" margin-bottom: 26px;"> Edit Work</a>
+
+                                    </td>
+                                }
+                            }
+
+                            @{
+                                if (Work.StatusWork == (WorkStatus)1)
+                                {     //pending
+
+
+                                    <td>
+                                        <a href="/Work/DeletWork?WorkId=@Work.Id" type="button" class="btn LeftColer" style="margin-bottom: 26px;"> Delet Work</a>
+
+                                    </td>
+                                }
+                            }
+
+                        </tr>
+
+                    }
+                }
+
+            }
+
+
+        </tbody>
+    </table>
+
+
+    <div class="col-sm-12  mt-8">
+        <br /><br /><br />
+        <a href="/Home/Index" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Back  To Home</a>
+        <a href="/Project/ShowDeveloperProjects" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Back To Project</a>
+        <a href="/Sprint/ShowDeveloperSprints?ProjectId=@Project.Id" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Back To Sprint </a>
+        <a href="/SprintTask/ShowDeveloperSprintTasks?SprintId=@SprintTask.SprintId" type="button" class="btn LeftColer col-sm-12  col-lg-2 mt-8" style=" margin-top: -10px; margin-bottom: 26px;"> Back  To  Tasks </a>
+    </div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+    $('document').ready(function () {
+        $("#SubmitAllWorks").click(function () {
+            $.ajax({
+                url: 'SubmitAllWorks',
+                data: { SprintTaskId : @SprintTask.Id} ,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if (data == "YES") {
+                        alert('Great !\n All works has been completed.\n Your Task completed successfully.');
+                        location.reload(true);
+                    }
+                    else {
+
+                        alert('Not all works are Approved !!!');
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+

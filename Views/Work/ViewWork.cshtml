@@ -1,0 +1,124 @@
+﻿@model FinalProject.Models.Work
+
+@{
+    ViewData["Title"] = "ViewWork";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <br />
+            <b>VIEW WORK INFORMATION </b>
+            <hr /> <br />
+            <table class="table table-responsive-sm" style="text-align:center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>The File</th>
+                        <th></th>
+
+                    </tr>
+                    
+                    <tr>
+                        
+                        <td>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Description)<br /><br />
+                        </td>
+                        @*<td>
+                            @Model.FileName
+                        </td>*@
+                        <td>
+                            <a href="/Work/GetFile?WorkId=@Model.Id" class="btn LeftColer" target="_blank"><i class="glyphicon glyphicon-user"></i>@Model.FileName</a>
+
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+            <br /><br />
+                            @{
+                                if (Model.StatusWork != (WorkStatus)2)
+                                {
+                                    <div>
+                                        <button id="SureApproved" onclick="Sure()" class="btn LeftColer">Approved</button>
+
+                                        <button onclick="RejectionFunction()" class="btn LeftColer">Decline</button>
+                                        <br /> <br />
+                                        <div id="Approved" style="display:none">
+                                            <a href="/Work/TeamLeaderApprovedWork?WorkId=@Model.Id&SprintTaskId=@Model.SprintTaskId" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Click To Approved</a>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div id="Rejection" style="display:none">
+                                            <p class="col-sm-8">
+                                                <b>Rejection Note</b> 
+                                            </p>
+
+                                            <form action="/Work/RejectedWork" method="post">
+                                                <textarea id="Rej" type="text" name="RejectionNote" placeholder="This work will be rejected for the following reasons : Ap...." value="" rows="5" cols="40" style=" margin-bottom: -4%;"></textarea>
+                                                <input type="number" name="SprintTaskId" value="@Model.SprintTaskId" hidden />
+                                                <input type="number" name="WorkId" value="@Model.Id" hidden />
+
+                                                <button type="submit" class="btn TopColer">Rejected</button>
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+
+
+                                }
+                            }
+
+        </div>
+        <div class="col-sm-4">
+            <br /><br />
+            <h2><img src="~/assets/img/LOGO.png" width="100%" alt="Alternate Text" /></h2>
+        </div>
+
+    </div>
+ 
+</div>
+
+
+
+
+
+
+<script>
+
+    function RejectionFunction() {
+
+        var Rejection = document.getElementById("Rejection");
+
+        if (Rejection.style.display === "none") {
+            Rejection.style.display = "block";
+        } else {
+            Rejection.style.display = "none";
+        }
+        //var SureApproved = document.getElementById("SureApproved");
+        //if (SureApproved.style.display === "none") {
+        //    SureApproved.style.display = "block";
+        //} else {
+        //    SureApproved.style.display = "none";
+        //}
+        var Approved = document.getElementById("Approved");
+        Approved.style.display = "none";
+
+    }
+    function Sure() {
+        alert("Are you sure you accept the work?\nYou will not be able to Reject it after that.", new class { class = "alert alert-danger" });
+        var Approved = document.getElementById("Approved");
+        if (Approved.style.display === "none") {
+            Approved.style.display = "block";
+        } else {
+            Approved.style.display = "none";
+        }
+
+
+    }
+</script>

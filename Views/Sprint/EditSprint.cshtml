@@ -1,0 +1,67 @@
+﻿@using FinalProject.Dto
+@model Sprint;
+@{ 
+    var Project= (Project)ViewBag.Project;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8"> <h2><img src="~/assets/img/Tracker.jpg" width="40%" alt="Alternate Text" /> <b> EDIT INFORMATION</b> </h2></div>
+
+    </div>
+    <b>EDIT  SPRINT INFORMATION </b>
+    <hr />
+
+    <form action="/Sprint/UpdateSprint">
+ 
+
+        <div class="form-group">
+
+            <input type="number" name="Id" value="@Model.Id" class="form-control" hidden />
+        </div>
+        <div class="form-group">
+
+            <input type="number" name="ProjectId" value="@Project.Id" class="form-control" hidden />
+        </div>
+        <div class="form-group">
+            <label for="ProjectTitle">This Sprint Project Title :</label>
+            <input type="text" name="ProjectTitle" value="@Project.Title" class="form-control" disabled />
+        </div>
+        <div class="form-group">
+            <label for="Title">Sprint Title :</label>
+            <input type="text" name="Title" value="@Model.Title" class="form-control" />
+            @*@Html.TextBoxFor(x => x.Title, new { @class = "form-control" })*@
+        </div>
+        <div class="form-group">
+            <label for="Description">Sprint Description :</label>
+            @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(x => x.StatusSprint, new { @class = "form-control" })
+            <input hidden="hidden" type="text" name="StatusSprintDto" value="Pending" />
+        </div>
+
+
+        <div class="form-group">
+            <label for="StartDate">Start Date :</label>
+            <input type="datetime" name="StartDate" value="@Model.StartDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="EndDate">End Date :</label>
+            <input type="datetime" name="EndDate" value="@Model.EndDate" class="form-control" />
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Save Edit</button>
+    </form>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+
+</script>

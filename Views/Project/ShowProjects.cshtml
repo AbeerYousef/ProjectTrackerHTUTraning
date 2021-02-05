@@ -1,0 +1,88 @@
+﻿@model List<Project>;
+
+@{
+
+    var ProjectManager = (ProjectManager)ViewBag.ProjectManager;
+    ViewBag.User = ProjectManager.FirstName + " " + ProjectManager.LastName;
+
+}
+
+<br />
+<div class="container" >
+    <div class="row" >
+
+        <div class="col-sm-8"> <img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" /> </div>
+        <div class="col-sm-4 mt-4" style=" text-align: center;"> <a href="/Project/CreatProject" type="button" class="btn LeftColer" style=" margin-top: 35%; margin-bottom: 0%;"> Creat Project</a> </div>
+        <b>&nbsp; PROJECT MANAGER PROJECTS </b>
+    </div>
+
+   
+    <br />
+ 
+    <table class="table table-responsive-sm" style="text-align:center">
+        <thead class="thead-dark">
+            <tr>
+
+                <th>Project Name</th>
+                @*<th>Description</th>*@
+                <th>Team Leader</th>
+                <th>Status</th>
+                <th>Developers</th>
+                <th>More</th>
+                <th>Works Complet Project</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var Project = (Project)item;
+                <tr>
+
+                    <td>@Project.Title</td>
+                    @*<td>@Project.Description</td>*@
+                    <td>@Project.TeamLeader.FirstName &nbsp; @Project.TeamLeader.LastName </td>
+                    <td>@Project.StatusProject</td>
+                    <td>
+                        <a href="/Project/ProjectDevelopers?ProjectId=@Project.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Developers</a>
+
+                    </td>
+
+                    @{
+                        @if (Project.StatusProject == (ProjectStatus)1) // pending
+                        {
+
+                            <td><a href="/Project/EditProject?ProjectId=@Project.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Edit</a></td>
+
+                        }
+                        else @if (Project.StatusProject == (ProjectStatus)2) // Completed
+                   {
+
+                    <td>
+                        <a href="/Project/EditProject?ProjectId=@Project.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Edit</a>
+                    </td>
+                    <td>
+
+
+
+                        <a href="/Work/ShowProjectManagerWorks?ProjectId=@Project.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Works</a>
+                    </td>
+
+                }
+
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br /><br /><br />
+    <div class="row">
+
+        <div class="col-sm-4 mt-4"> <a href="/Home/Index" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a> </div>
+
+    </div>
+
+</div>
+
+
+

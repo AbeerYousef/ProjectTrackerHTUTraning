@@ -1,0 +1,118 @@
+﻿@model List<Sprint>;
+
+@{
+
+    var ProjectID = (int)ViewBag.ProjectID;
+    var Project = (Project)ViewBag.Project;
+
+}
+
+<br />
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-8">
+            <h3><img src="~/assets/img/LOGO.png" width="30%" alt="Alternate Text" />  
+                    <b>TEAM LEADER SPRINTS</b></h3> 
+            <b> Project Name : @Project.Title</b></div>
+
+
+        <div class="col-sm-4 mt-4" style="text-align:center; margin-top: 10% !important;">
+            <a href="/Sprint/CreatSprint?ProjectId=@ProjectID" type="button" class="btn LeftColer" style=" margin-top: 18px; margin-bottom: 26px;"> Creat Sprint</a>
+
+            @*if (IsApproved == true)*@
+            <input id="SubmitAllProject" type="button" class="btn LeftColer" style=" margin-top: 18px; margin-bottom: 26px;" value="Complet Project" />
+
+        </div>
+      
+    </div>
+<br />
+
+        <table class="table table-responsive-sm" style="text-align:center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sprint Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>More</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var Sprint = (Sprint)item;
+                    <tr>
+                        <td>@Sprint.Title</td>
+                        <td>@Sprint.StartDate</td>
+                        <td>@Sprint.EndDate </td>
+                        <td>@Sprint.StatusSprint</td>
+
+                        <td>
+                            <a href="/SprintTask/ShowSprintTasks?SprintId=@Sprint.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Tasks</a> &nbsp;&nbsp;&nbsp;
+
+
+                            <a href="/Sprint/EditSprint?SprintId=@Sprint.Id" class="btn LeftColer"><i class="glyphicon glyphicon-user"></i>Edit</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br /><br /><br />
+        <div class="row">
+
+            <div class="col-sm-4 mt-4">
+                <a href="/Home/Index" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Home</a>
+
+
+                <a href="/Project/ShowTeamLeaderProjects" type="button" class="btn LeftColer" style=" margin-top: -10px; margin-bottom: 26px;"> Go Back To Project</a>
+
+
+            </div>
+
+        </div>
+
+
+
+</div>
+
+
+    <script>
+
+    $('document').ready(function () {
+        $("#SubmitAllProject").click(function () {
+
+
+            $.ajax({
+
+                url: '/Project/CompletProject',
+                data: { ProjectID : @ProjectID} ,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+
+                    if (data == "YES") {
+
+                        alert('Great !\n All Sprint has been completed.\n Your Project completed successfully.');
+                        location.reload();
+                    }
+                    else {
+
+                        alert('Not all Sprint are complet !!!\n Or you didn\'t Create any Sprint until now!');
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+        });
+
+
+    });
+    </script>
+
+
+

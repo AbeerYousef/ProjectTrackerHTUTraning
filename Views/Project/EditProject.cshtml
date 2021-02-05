@@ -1,0 +1,105 @@
+﻿@using FinalProject.Dto
+@model Project;
+
+@{ 
+    var DevelobersForProject = (List<Developer>)ViewBag.DevelobersForProject;
+    var AtherDevelopers = (List<Developer>)ViewBag.AtherDevelopers;
+    var AtherTeamLeaders =(List<TeamLeader>) ViewBag.AtherTeamLeaders;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <br /><br />
+            <b>EDIT  PROJECT INFORMATION </b>
+            <hr />
+            <form action="/Project/UpdateProject">
+
+
+                <div class="form-group">
+
+                    <input type="number" name="Id" value="@Model.Id" class="form-control" hidden />
+                </div>
+
+                <div class="form-group">
+                    <label for="Title">Project Title :</label>
+                    <input type="text" name="Title" value="@Model.Title" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Description">Project Description :</label>
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.HiddenFor(x => x.StatusProject, new { @class = "form-control" })
+                    <input hidden="hidden" type="text" name="StatusSprintDto" value="Pending" />
+                </div>
+
+                <select id="TeamLeaderId" name="TeamLeaderId">
+                    @{
+
+                        <option selected value=@Model.TeamLeaderId>@Model.TeamLeader.FirstName &nbsp; @Model.TeamLeader.LastName</option>
+
+                    }
+                    @{
+                        foreach (var TeamLeader in AtherTeamLeaders)
+                        {
+
+                            <option value=@TeamLeader.Id>@TeamLeader.FirstName &nbsp; @TeamLeader.LastName</option>
+                        }
+                    }
+
+
+
+                </select>
+                <br />  <br />
+
+                <select id="DeveloperIds" multiple="multiple" name="DeveloperIds" >
+                    @{
+
+                        <option value=""> </option>
+
+                        foreach (var Developer in DevelobersForProject)
+                        {
+
+                            <option selected value=@Developer.Id>@Developer.FirstName &nbsp; @Developer.LastName</option>
+                        }
+                    }
+                    @{
+                        foreach (var Developer in AtherDevelopers)
+                        {
+
+                            <option value=@Developer.Id>@Developer.FirstName &nbsp; @Developer.LastName</option>
+                        }
+                    }
+
+
+
+                </select>
+
+                <br /><br />
+
+                <button type="submit" class="btn LeftColer">Save Edit</button>
+
+
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <br />
+            <br />
+            <br />
+            <img src="~/assets/img/LOGO.png" width="100%" alt="Alternate Text" />
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+
+</script>

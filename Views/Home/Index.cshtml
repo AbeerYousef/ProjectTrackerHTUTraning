@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid">
+
+    @if (User.IsInRole("DEVELOPER") || User.IsInRole("ADMIN") || User.IsInRole("TEAMLEADER") || User.IsInRole("PROJECTMANAGER"))
+    {
+        <img src="~/assets/img/LOGO.png" width="50%" style=" margin-left: 24% ; margin-top: -2%;" alt="Alternate Text" />
+    }
+    else
+    {
+        <img src="~/assets/img/LOGO.png" width="70%" style=" margin-left: 13% ; margin-top: -2%;" alt="Alternate Text" />
+    }
+
+
+
+
+<div class="row  m-lg-auto" style="text-align:center;">
+
+    @if (User.IsInRole("DEVELOPER"))
+    {
+        
+        <div class="col-xl-4 col-md-6">
+            <div class="card TopColer text-white mb-4">
+                <div class="card-body" style="font-size:x-large;;color:white"><b>Developer Projects</b> </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/Project/ShowDeveloperProjects" style="font-size:larger; color:white"><b>View Details</b></a>
+                    <div class=" text-white"><i class="fas fa-angle-right" style="font-size:xx-large; color:white"></i></div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+    @if (User.IsInRole("ADMIN"))
+    {
+
+
+
+        <div class="col-xl-4 col-md-6">
+            <div class="card  text-white mb-4 TopColer" >
+                <div class="card-body" style="font-size:x-large; color:white"><b>Project Manager</b></div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/ProjectManager/ShowProjectManagers" style="font-size:larger; color:white"><b>View Details</b></a>
+                    <div class=" text-white"><i class="fas fa-angle-right" style="font-size:xx-large; color:white"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6">
+            <div class="card  text-white mb-4 LeftColer" >
+                <div class="card-body" style="font-size:x-large; color:white"><b>Team Leader</b></div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="text-white stretched-link" href="/TeamLeader/ShowTeamLeaders" style="font-size:larger; color:white"><b>View Details</b> </a>
+                    <div class=" text-white"><i class="fas fa-angle-right" style="font-size:xx-large; color:white"></i></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xl-4 col-md-6">
+            <div class="card  text-white mb-4 TopColer" >
+                <div class="card-body" style="font-size:x-large; color:white"><b>Developers </b></div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/Developer/ShowDevelopers" style="font-size:larger; color:white"><b>View Details</b></a>
+                    <div class=" text-white"><i class="fas fa-angle-right" style="font-size:xx-large; color:white"></i></div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    @if (User.IsInRole("TEAMLEADER"))
+    {
+
+        <div class="col-xl-5 col-md-6">
+            <div class="card TopColer text-white mb-4">
+                <div class="card-body" style="font-size:x-large; color:white"><b>Projects</b></div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/Project/ShowTeamLeaderProjects" style="font-size:larger; color:white"><b>View Details</b></a>
+                    <div class=" text-white"><i class="fas fa-angle-right" style="font-size:xx-large; color:white"></i></div>
+                </div>
+            </div>
+        </div>
+   
+    }
+
+
+    @if (User.IsInRole("PROJECTMANAGER"))
+    {
+        
+        <div class="col-xl-6 col-sm-6">
+            <div class="card text-white mb-4 TopColer">
+                <div class="card-body" style="font-size:x-large; color:white"><b>Projects</b></div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="/Project/ShowProjects" style="font-size:larger; color:white"><b>View Details</b></a>
+                    <div class=" text-white"><i class="fas fa-angle-right" style="font-size:xx-large; color:white"></i></div>
+                </div>
+            </div>
+        </div>
+       
+
+            <div class="col-xl-6  col-sm-6 ">
+                <div class="card text-white mb-4 LeftColer" >
+                    <div class="card-body" style="font-size:x-large; color:white"><b> NEW PROJECT</b></div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="/Project/CreatProject" style="font-size:larger; color:white"><b>ADD</b></a>
+                        <div class=" text-white"><i class="fas fa-angle-right" style="font-size:xx-large; color:white"></i></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            }
+
+
+        </div>
+
+
+
+    </div>
+ 
+

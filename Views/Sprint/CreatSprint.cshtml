@@ -1,0 +1,83 @@
+﻿@using FinalProject.Dto
+@model SprintDto;
+
+@{
+    var Project = (Project)ViewBag.Project;
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-8">
+            <br /><br />
+            <b>ADD  SPRINT INFORMATION </b>
+            <hr />
+
+            <form action="/Sprint/InsertSprint">
+                <div class="form-group">
+
+                    <input type="number" name="ProjectId" value="@Project.Id" class="form-control" hidden />
+                </div>
+                <div class="form-group">
+                    <label for="ProjectTitle">This Sprint Project Title :</label>
+                    <input type="text" name="ProjectTitle" value="@Project.Title" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+
+                    <input type="text" name="TeamLeaderId" value="@Project.TeamLeaderId" class="form-control" hidden />
+                </div>
+                @{
+                    var TeamLeaderFullName = @Project.TeamLeader.FirstName + " " + @Project.TeamLeader.LastName;
+                }
+                <div class="form-group">
+                    <label for="ProjectTitle">Team Leader  :</label>
+                    <input type="text" name="TeamLeaderFullName" value="@TeamLeaderFullName" class="form-control" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="Title">Sprint Title :</label>
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="Description">Sprint Description :</label>
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+
+                    @*@Html.HiddenFor(x => x.StatusProjectDto, new { @class = "form-control" })*@
+                    <input hidden="hidden" type="text" name="StatusSprintDto" value="Pending" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="StartDate">Start Date :</label>
+                    <input type="datetime" name="StartDate" value="@DateTime.Now" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="EndDate">End Date :</label>
+                    <input type="datetime" name="EndDate" value=" " class="form-control" />
+                </div>
+
+
+
+                <button type="submit" class="btn LeftColer">Add</button>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <br /><br />
+            <h2><img src="~/assets/img/LOGO.png" width="100%" alt="Alternate Text" /></h2>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+
+</script>

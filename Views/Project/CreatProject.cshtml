@@ -1,0 +1,90 @@
+﻿@using FinalProject.Dto
+@model ProjectDto;
+
+@{
+    var TeamLeaders = (List<TeamLeader>)ViewBag.TeamLeaders;
+    var Developers = (List<Developer>)ViewBag.Developers;
+
+    var ProjectManager = (ProjectManager)ViewBag.ProjectManager;
+    ViewBag.User = ProjectManager.FirstName + " " + ProjectManager.LastName;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <br /><br />
+            <b>ADD  PROJECT INFORMATION </b>
+            <hr />
+            <form action="/Project/InsertProject">
+
+                <div class="form-group">
+                    <label for="Title">Title :</label>
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="Description">Description :</label>
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                </div>
+
+
+                <div class="form-group">
+
+
+                    <input hidden="hidden" type="text" name="StatusProjectDto" value="Pending" />
+                </div>
+
+                <div class="form-group">
+
+                    @Html.HiddenFor(x => x.ProjectManagerId, new { @class = "form-control" })
+
+                </div>
+
+
+                <select id="TeamLeaderId" name="TeamLeaderId">
+                    @{
+                        foreach (var item in TeamLeaders)
+                        {
+
+                            <option value=@item.Id>@item.FirstName &nbsp; @item.LastName</option>
+                        }
+                    }
+
+                </select>
+                <br /><br />
+
+                <select id="DeveloperIds" multiple="multiple" name="DeveloperIds" >
+                    @{
+                        foreach (var item in Developers)
+                        {
+
+                            <option value=@item.Id>@item.FirstName &nbsp; @item.LastName</option>
+                        }
+                    }
+
+                </select>
+                <br /><br />
+
+                <button type="submit" class="btn LeftColer">Submit</button>
+            </form>
+
+        </div>
+        <div class="col-sm-4">
+            <br /><br />
+            <h2><img src="~/assets/img/LOGO.png" width="100%" alt="Alternate Text" /></h2>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+
+</script>
